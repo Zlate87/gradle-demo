@@ -1,0 +1,8 @@
+apply from: 'http://repo.netcetera.com/nexus/content/repositories/internal-repository-snapshot/com/netcetera/demo/gradle/gradle-parent/1.0.0-SNAPSHOT/gradle-parent-1.0.0-20140116.134102-1.gradle'
+
+android {
+    defaultConfig {
+        versionCode 2
+        versionName "2.0"
+    }
+}

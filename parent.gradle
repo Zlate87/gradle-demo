@@ -1,0 +1,34 @@
+// add repository locations
+repositories {
+    mavenCentral()
+    maven {
+        url 'http://repo.netcetera.com/nexus/content/groups/public/'
+    }
+}
+
+apply plugin: 'android'
+
+android {
+    // set source encoding
+    compileOptions.encoding = "ISO-8859-1"
+    compileSdkVersion 19
+    buildToolsVersion "19.0.0"
+
+    defaultConfig {
+        minSdkVersion 7
+        targetSdkVersion 19
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
+
+dependencies {
+    // add compile time dependency
+    compile 'com.android.support:appcompat-v7:+'
+}

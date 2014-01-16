@@ -1,0 +1,37 @@
+apply plugin: 'maven'
+
+version = "1.0.0-SNAPSHOT"
+group = "com.netcetera.demo.gradle"
+
+def gradleParentFile = file('parent.gradle')
+
+artifacts {
+    archives gradleParentFile
+}
+
+configurations {
+    archives {
+        extendsFrom configurations.default
+    }
+}
+
+uploadArchives {
+    configuration = configurations.archives
+    repositories.mavenDeployer {
+
+
+        // if the version name contatin SNAPSHOT, the "repository" is used
+        snapshotRepository(url: 'http://repo.netcetera.com/nexus/content/repositories/internal-repository-snapshot') {
+            authentication(userName: 'changeIt', password: 'changeIt')
+        }
+
+        // if the version name do not contatin SNAPSHOT, the "repository" is used
+        repository(url: 'http://repo.netcetera.com/nexus/content/repositories/internal-repository-release') {
+            authentication(userName: 'changeIt', password: 'changeIt')
+        }
+
+        pom.project {
+            artifactId 'gradle-parent'
+        }
+    }
+}

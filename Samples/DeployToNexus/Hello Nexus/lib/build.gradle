@@ -1,0 +1,60 @@
+apply plugin: 'android-library'
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion "19.0.0"
+
+    defaultConfig {
+        minSdkVersion 7
+        targetSdkVersion 19
+        versionCode 1
+        versionName "1.0"
+    }
+    release {
+        runProguard false
+        proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+    }
+}
+
+dependencies {
+    compile 'com.android.support:appcompat-v7:+'
+}
+
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+version = "1.0.0-SNAPSHOT"
+group = "com.netcetera.demo.gradle"
+
+configurations {
+    archives {
+        extendsFrom configurations.default
+    }
+}
+
+signing {
+    required { has("release") && gradle.taskGraph.hasTask("uploadArchives") }
+    sign configurations.archives
+}
+
+uploadArchives {
+    configuration = configurations.archives
+    repositories.mavenDeployer {
+        beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+        // if the version name contatin SNAPSHOT, the "repository" is used
+        snapshotRepository(url: 'http://repo.netcetera.com/nexus/content/repositories/internal-repository-snapshot') {
+            authentication(userName: 'changeUsername', password: 'changePassword')
+        }
+
+        // if the version name do not contatin SNAPSHOT, the "repository" is used
+        repository(url: 'http://repo.netcetera.com/nexus/content/repositories/internal-repository-release') {
+            authentication(userName: 'changeUsername', password: 'changePassword')
+        }
+
+        pom.project {
+            artifactId 'hellow-nexus'
+            packaging 'aar'
+        }
+    }
+}
