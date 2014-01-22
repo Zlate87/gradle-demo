@@ -22,12 +22,12 @@ uploadArchives {
 
         // if the version name contatin SNAPSHOT, the "repository" is used
         snapshotRepository(url: 'http://repo.netcetera.com/nexus/content/repositories/internal-repository-snapshot') {
-            authentication(userName: 'changeIt', password: 'changeIt')
+            authentication(userName: username, password: password)
         }
 
         // if the version name do not contatin SNAPSHOT, the "repository" is used
         repository(url: 'http://repo.netcetera.com/nexus/content/repositories/internal-repository-release') {
-            authentication(userName: 'changeIt', password: 'changeIt')
+            authentication(userName: username, password: password)
         }
 
         pom.project {
