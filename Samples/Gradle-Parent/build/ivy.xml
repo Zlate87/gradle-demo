@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:m="http://ant.apache.org/ivy/maven">
+	<info organisation="com.netcetera.demo.gradle"
+		module="Gradle-Parent"
+		revision="1.0.0-SNAPSHOT"
+		status="integration"
+		publication="20140122133851"
+	/>
+	<configurations>
+		<conf name="archives" visibility="public" description="Configuration for archive artifacts." extends="default"/>
+		<conf name="default" visibility="public" description="Configuration for default artifacts."/>
+	</configurations>
+	<publications>
+		<artifact name="parent" type="gradle" ext="gradle" conf="archives"/>
+	</publications>
+</ivy-module>
