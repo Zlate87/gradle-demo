@@ -6,6 +6,9 @@ import org.junit.Test;
 
 import org.robolectric.RobolectricTestRunner;
 
+import android.app.Activity;
+import android.widget.TextView;
+
 @RunWith(RobolectricTestRunner.class)
 public class MainActivityTest {
 
