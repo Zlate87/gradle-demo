@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends Activity
@@ -39,6 +40,21 @@ public class MainActivity extends Activity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText x = (EditText) findViewById(R.id.editTextX);
+                EditText y = (EditText) findViewById(R.id.editTextY);
+                String xString = x.getText().toString();
+                String yString = y.getText().toString();
+                int xInt = Integer.valueOf(xString);
+                int yInt = Integer.valueOf(yString);
+                int sum = CalculatorUtil.add(xInt, yInt);
+                TextView sumTextView = (TextView) findViewById(R.id.textViewSum);
+                sumTextView.setText(String.valueOf(sum));
+            }
+        });
     }
 
     @Override

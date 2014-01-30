@@ -1,31 +1,47 @@
-apply from: 'http://repo.netcetera.com/nexus/content/repositories/internal-repository-snapshot/com/netcetera/demo/gradle/gradle-parent/1.0.0-SNAPSHOT/gradle-parent-1.0.0-20140116.134102-1.gradle'
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            url 'https://oss.sonatype.org/content/repositories/snapshots/'
+        }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.7.+'
+        classpath 'com.squareup.gradle:gradle-android-test-plugin:0.9.1-SNAPSHOT'
+    }
+}
+apply plugin: 'android'
+apply plugin: 'android-test'
 
-android {
-    defaultConfig {
-        minSdkVersion 14
-        versionName "1.0.0"
-        versionCode 100000
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://oss.sonatype.org/content/repositories/snapshots/'
     }
 }
 
+android {
+    compileSdkVersion 18
+    buildToolsVersion "18.1.0"
 
+    defaultConfig {
+        minSdkVersion 18
+        targetSdkVersion 18
+    }
 
-sourceSets {
-    unitTest {
-        java.srcDir file('src/test/java')
-        resources.srcDir file('src/test/res')
+    sourceSets {
+        instrumentTest.setRoot('src/test')
     }
 }
 
 dependencies {
-    unitTestCompile files("$project.buildDir/classes/release")
-    unitTestCompile 'junit:junit:4.10'
-    unitTestCompile 'org.robolectric:robolectric:2.1.+'
-    unitTestCompile 'com.google.android:android:4.0.1.2'
-}
+    compile 'com.android.support:appcompat-v7:+'
 
-task unitTest(type:Test, dependsOn: assemble) {
-    testClassesDir = project.sourceSets.unitTest.output.classesDir
-    classpath = project.sourceSets.unitTest.runtimeClasspath
+    instrumentTestCompile 'junit:junit:4.10'
+    instrumentTestCompile 'org.robolectric:robolectric:2.3-SNAPSHOT'
+    instrumentTestCompile 'com.squareup:fest-android:1.0.+'
+
+    testCompile 'junit:junit:4.10'
+    testCompile 'org.robolectric:robolectric:2.3-SNAPSHOT'
+    testCompile 'com.squareup:fest-android:1.0.+'
 }
-check.dependsOn unitTest
