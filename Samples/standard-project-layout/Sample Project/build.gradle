@@ -2,10 +2,13 @@ apply from: 'http://repo.netcetera.com/nexus/content/repositories/internal-repos
 
 android {
     defaultConfig {
+        minSdkVersion 14
         versionName "1.0.0"
         versionCode 100000
     }
 }
+
+
 
 sourceSets {
     unitTest {
