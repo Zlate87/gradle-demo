@@ -20,6 +20,9 @@ repositories {
     }
 }
 
+version = "1.0.0-SNAPSHOT"
+group = "com.netcetera.demo.gradle"
+
 android {
     compileSdkVersion 18
     buildToolsVersion "18.1.0"
@@ -44,4 +47,23 @@ dependencies {
     testCompile 'junit:junit:4.10'
     testCompile 'org.robolectric:robolectric:2.3-SNAPSHOT'
     testCompile 'com.squareup:fest-android:1.0.+'
+}
+
+apply plugin: "sonar-runner"
+sonarRunner {
+    sonarProperties {
+        property "sonar.host.url", "http://localhost:9000/"
+        property "sonar.jdbc.url", "jdbc:h2:tcp://localhost:9092/sonar"
+        property "sonar.jdbc.driverClassName", "org.h2.Driver"
+        property "sonar.jdbc.username", "sonar"
+        property "sonar.jdbc.password", "sonar"
+        property "sonar.language", "java"
+        property "sonar.sources", "src/main/java"
+        property "sonar.test", "src/test/java"
+        property "sonar.binaries", "build"
+
+        // There is a problem when using "standard-project-layout:Sample Project" (by default)
+        // because of the wide space
+        property "sonar.projectKey", "standard-project-layout:sample-project"
+    }
 }
